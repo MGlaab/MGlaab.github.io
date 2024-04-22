@@ -1,138 +1,233 @@
-<html lang="en">
-<head>
+<style>
+    /*
+ * Just for presentation 
+ */
+    body {
+        padding: 2rem;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        text-align: center;
+    }
 
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,height=device-height,initial-scale=1">
+    section {
+        margin: 0 auto;
+        max-width: 700px;
+        min-width: 380px;
+        width: 50vw;
+    }
 
-<title>untitled document</title>
+    h2 {
+        font-size: 0.625rem;
+        text-transform: uppercase;
+        margin: 4rem 0 2rem 0;
+        font-weight: 600;
+        color: rgba(0, 0, 0, 0.5)
+    }
 
-<!--<link rel="stylesheet" href="screen.css" media="screen">-->
 
-<style media="screen">
+    /* 
+ * SEGMENTED CONTROLS LAYOUT
+ */
 
-body {
-    background-color: #f9f9f9;
-    font: 100% / 162% BlinkMacSystemFont, -apple-system, 'Segoe UI', roboto, helvetica, arial, sans-serif;
- }
+    /*
+ * Container
+ */
+    .segmented-controls {
+        display: flex;
+        margin: 0 auto;
+        position: relative;
+        overflow: hidden;
+        transition: all .3s ease;
+    }
 
-.hide_input {
-     display:none;
- }
+    /*
+ * Vissualy hidden radiobuttons
+ */
+    .segmented-controls input {
+        position: absolute !important;
+        height: 1px;
+        width: 1px;
+        overflow: hidden;
+        clip: rect(1px 1px 1px 1px);
+        /* IE6, IE7 */
+        clip: rect(1px, 1px, 1px, 1px);
+        white-space: nowrap;
+        /* added line */
+    }
 
-.hide_type {
-     display:none;
- }
+    /* 
+ * Labels need to be the same size
+ */
+    .segmented-controls label {
+        grid-row: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        cursor: pointer;
+        flex: 1 1 0px;
+        position: relative;
+        z-index: 2;
+        transition: inherit;
+    }
+
+    /* 
+ * Adjust z-index of last label since that contains 
+ * the paddle that needs to go beneath all other labels 
+ */
+    .segmented-controls label:last-of-type {
+        z-index: 1;
+    }
+
+    /*
+ * Paddle 
+ */
+    .segmented-controls label:last-of-type::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: -2;
+        background-color: black;
+        transition: inherit;
+    }
+
+    /*
+ * Move paddle depending on which option is selected
+ */
+    @for $i from 1 through 9 {
+        .segmented-controls input:nth-last-of-type(#{$i + 1}):checked~label:last-of-type::after {
+            transform: translateX($i * -100%);
+        }
+    }
+
+
+    /*
+ * IOS 13 Theme
+ * Special thanks to https://www.figma.com/community/file/768365747273056340
+ */
+
+    body {
+        background: #f1f2f6;
+    }
+
+    /*
+ * Container
+ */
+    .segmented-controls {
+        border-radius: 0.5rem;
+        background: #e2e2e9;
+        height: 2rem;
+        padding: 0.125rem;
+    }
+
+    /*
+ * Labels 
+ */
+    .segmented-controls label {
+        font-size: 0.8125rem;
+        font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        font-weight: 500;
+        line-height: 1;
+    }
+
+    /*
+ * Dividers
+ */
+    .segmented-controls label:not(:first-of-type)::before {
+        content: "";
+        position: absolute;
+        z-index: -3;
+        top: 0.5rem;
+        left: 0;
+        bottom: 0.5rem;
+        width: 1px;
+        background: rgba(0, 0, 0, 0.15);
+        transition: inherit;
+    }
+
+
+    /*
+ * Selected option 
+ */
+    .segmented-controls input:checked+label {
+        font-weight: 600;
+        font-size: 0.875rem;
+    }
+
+    /*
+ * Hide dividers before and after the selected option
+ */
+    .segmented-controls input:checked+label::before,
+    .segmented-controls input:checked+label+input+label::before {
+        opacity: 0;
+    }
+
+    /*
+ * Focus style for keyboard navigation
+ */
+    .segmented-controls:focus-within {
+        box-shadow: 0 0 0 .2rem rgba(0, 122, 255, 0.75);
+    }
+
+
+    /*
+ * Paddle
+ */
+    .segmented-controls label:last-of-type::after {
+        background: white;
+        border-radius: 0.4275rem;
+        border: 0.5px solid rgba(0, 0, 0, 0.04);
+        box-shadow: 0px 3px 1px rgba(0, 0, 0, 0.04), 0px 3px 8px rgba(0, 0, 0, 0.12);
+    }
 </style>
+<section>
+    <h1>iOS 13 segmented controls without JS</h1>
+    <p>Same CSS used for all variations</p>
 
-</head>
-<body> 
-<p>Select the number of inputs on your interface. (max. 8)</p>
- <form id="num_inputs" action="#">
-  <select id="number-of-inputs">
-   <option value="">0</option>
-   <option value="1">1</option> 
-   <option value="2">2</option>
-   <option value="3">3</option>
-   <option value="4">4</option>
-   <option value="5">5</option>
-   <option value="6">6</option>
-   <option value="7">7</option>
-   <option value="8">8</option>
-  </select>
- </form>
+    <h2>Two options</h2>
+    <div class="segmented-controls">
+        <input id="two-1" name="two" type="radio" checked>
+        <label for="two-1">Good Morning</label>
+        <input id="two-2" name="two" type="radio">
+        <label for="two-2">Good Evening</label>
+    </div>
 
-  <div class="hide_input">
-    <h2>Input 1</h2> <p id="input_1"></p>
-<p>How would you like the first input to function?</p>
+    <h2>Three options</h2>
+    <div class="segmented-controls">
+        <input id="three-1" name="three" type="radio" checked>
+        <label for="three-1">The Good</label>
+        <input id="three-2" name="three" type="radio">
+        <label for="three-2">The Bad</label>
+        <input id="three-3" name="three" type="radio">
+        <label for="three-3">The Ugly</label>
+    </div>
 
-<form id="type_inputs" action="#">
-    <input type="radio" id="keyboard" name="type_of_interface" value="Keyboard">
-    <label for="keyboard">Keyboard</label><br>
-    <input type="radio" id="mouse" name="type_of_interface" value="Mouse">
-    <label for="mouse">Mouse</label><br>
-    <input type="radio" id="both" name="type_of_interface" value="Keyboard and Mouse">
-    <label for="both">Keyboard and Mouse</label><br><br>
-</form>
+    <h2>Four options</h2>
+    <div class="segmented-controls">
+        <input id="four-1" name="four" type="radio" checked>
+        <label for="four-1">Rain</label>
+        <input id="four-2" name="four" type="radio">
+        <label for="four-2">Snow</label>
+        <input id="four-3" name="four" type="radio">
+        <label for="four-3">Sunshine</label>
+        <input id="four-4" name="four" type="radio">
+        <label for="four-4">Wind</label>
+    </div>
 
-<p class="hide_type">Press a key on the keyboard in the input field.</p>
+    <h2>Five options</h2>
+    <div class="segmented-controls">
+        <input id="five-1" name="five" type="radio" checked>
+        <label for="five-1">One</label>
+        <input id="five-2" name="five" type="radio">
+        <label for="five-2">Two</label>
+        <input id="five-3" name="five" type="radio">
+        <label for="five-3">Three</label>
+        <input id="five-4" name="five" type="radio">
+        <label for="five-4">Four</label>
+        <input id="five-5" name="five" type="radio">
+        <label for="five-5">Five</label>
+    </div>
 
-<input class="hide_type" type="text" id="text1" value="" size="40" onkeydown="myFunction(event)">
-<p id="demo"></p>
-<input class="hide_type" id="btnDel" type="button" value="Clear" onclick="del();" />
-  </div>
-
-
-  <div class="hide_input">
-    <h2>Input 2</h2> <p id="input_2"></p>
-    <p>How would you like the second input to function?</p>
-
-    <form id="type_inputs" action="#">
-        <input type="radio" id="keyboard" name="type_of_interface" value="Keyboard">
-        <label for="keyboard">Keyboard</label><br>
-        <input type="radio" id="mouse" name="type_of_interface" value="Mouse">
-        <label for="mouse">Mouse</label><br>
-        <input type="radio" id="both" name="type_of_interface" value="Keyboard and Mouse">
-        <label for="both">Keyboard and Mouse</label><br><br>
-    </form></div>
-  <div class="hide_input">Input 3</div>
-  <div class="hide_input">Input 4</div>
-  <div class="hide_input">Input 5</div>
-  <div class="hide_input">Input 6</div>
-  <div class="hide_input">Input 7</div>
-  <div class="hide_input">Input 8</div>
-<script>
-( function( d ) {
-  'use strict';
-
-   var c, inputs = d.querySelectorAll( '.hide_input' );
-   d.querySelector( '#num_inputs' ).reset();
-
-   d.querySelector( '#number-of-inputs' ).addEventListener( 'change',
-      function() {
-        for( c = 0; c < inputs.length; c ++ ) {
-              inputs[ c ].classList.add( 'hide_input' );
-         }
-        for ( c = 0; c < this.value; c ++ ) {
-              inputs[ c ].classList.remove( 'hide_input' );
-         }
-      },false );
-}(document));
-    (function (d) {
-        'use strict';
-
-        var c, inputs = d.querySelectorAll('.hide_type');
-        d.querySelector('#type_inputs').reset();
-
-        d.querySelector('#type_inputs').addEventListener('change',
-            function () {
-                for (c = 0; c < inputs.length; c++) {
-                    inputs[c].classList.add('hide_type');
-                }
-                for (c = 0; c < this.value; c++) {
-                    inputs[c].classList.remove('hide_type');
-                }
-            }, false);
- }( document ));
-        
- 
- const keys= [];
-        function myFunction(event) {
-            let key = event.code;
-        let key_up = key.toUpperCase();
-        keys.push(key_up);
-        document.getElementById("demo").innerHTML = "The keys list is: " + keys;
-        console.log(keys);
-}
-
-        function del() {
-    var demo_text = document.getElementById("text1");
-        keys.length = 0;
-        document.getElementById("demo").innerHTML = ""
-        demo_text.value = "";
-        console.log(keys);
-}
-
-</script>  
-
-</body>
-</html>
+</section>
