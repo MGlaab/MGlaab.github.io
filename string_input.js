@@ -242,6 +242,7 @@ const usages_by_function = {
  ', <': '0x00070036',
  '. >': '0x00070037',
  '/ ?': '0x00070038',
+ '!': ['0x000700e1', '0x0007001e'],
  'F1': '0x0007003a',
  'F2': '0x0007003b',
  'F3': '0x0007003c',
@@ -380,7 +381,7 @@ const usages_by_function = {
  'GPIO 29': '0xfff4001d'
  }
 
-var input_string = 'Hello World'
+var input_string = 'Hello World Lennon! '
 var macro_number = 1
 var usages_array = []
 var dataObject = {};
@@ -415,20 +416,23 @@ for (let i = 0; i < starting_array.length; i++){
 // console.log(starting_array);
 // console.log(starting_array.length)
 
+
 for (let i = 0; i < starting_array.length; i++){
   let c = usages_by_function[starting_array[i]];
   // console.log(c);
   usages_array[i] = (c)
 }
 
-// console.log(usages_array);
+var usages_array_flat =usages_array.flat()
+console.log('usages_array_flat:');
+console.log(usages_array_flat);
 // console.log(usages_array.length)
 
 result_array = []
 temp_array = []
 
-for (let i = 0; i < usages_array.length; i++){
-  let c = usages_array[i]
+for (let i = 0; i < usages_array_flat.length; i++){
+  let c = usages_array_flat[i]
   // console.log(c)
   if (c == '0x000700e1') {  // Left Shift
     temp_array.push(c)
