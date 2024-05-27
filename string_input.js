@@ -1,100 +1,157 @@
-// import usages from './usages.js';
 
-const usages = {
-    'source': {
-        "0x00090001": { 'name': 'Left button', 'class': 'mouse' },
-    },
-    0: {
-        "0x00090001": { 'name': 'CHANGED', 'class': 'mouse' },
-    },
-    2: {
-        "0x00090001": { 'name': 'Y', 'class': 'mouse' },
-    },
-    3: {
-        "0x00090001": { 'name': 'Square', 'class': 'mouse' },
-    },
-    4: {
-        "0x00090001": { 'name': 'Left stick X', 'class': 'mouse' },
-    },
-};
+json_in_path = "/Users/matthewglaab/Downloads/MGlaab.github.io-main/base JSON.json"
+json_out_path = "/Users/matthewglaab/Downloads/MGlaab.github.io-main/base JSON Modified.json"
 
-const common_target_usages = {
-    "0x00000000": { 'name': 'Nothing', 'class': 'other' },
-    "0xfff10001": { 'name': 'Layer 1', 'class': 'other' },
-    "0xfff10002": { 'name': 'Layer 2', 'class': 'other' },
-    "0xfff10003": { 'name': 'Layer 3', 'class': 'other' },
-    "0xfff10004": { 'name': 'Layer 4', 'class': 'other' },
-    "0xfff10005": { 'name': 'Layer 5', 'class': 'other' },
-    "0xfff10006": { 'name': 'Layer 6', 'class': 'other' },
-    "0xfff10007": { 'name': 'Layer 7', 'class': 'other' },
-    "0xfff20001": { 'name': 'Macro 1', 'class': 'other' },
-    "0xfff20002": { 'name': 'Macro 2', 'class': 'other' },
-    "0xfff20003": { 'name': 'Macro 3', 'class': 'other' },
-    "0xfff20004": { 'name': 'Macro 4', 'class': 'other' },
-    "0xfff20005": { 'name': 'Macro 5', 'class': 'other' },
-    "0xfff20006": { 'name': 'Macro 6', 'class': 'other' },
-    "0xfff20007": { 'name': 'Macro 7', 'class': 'other' },
-    "0xfff20008": { 'name': 'Macro 8', 'class': 'other' },
-    "0xfff20009": { 'name': 'Macro 9', 'class': 'other' },
-    "0xfff2000a": { 'name': 'Macro 10', 'class': 'other' },
-    "0xfff2000b": { 'name': 'Macro 11', 'class': 'other' },
-    "0xfff2000c": { 'name': 'Macro 12', 'class': 'other' },
-    "0xfff2000d": { 'name': 'Macro 13', 'class': 'other' },
-    "0xfff2000e": { 'name': 'Macro 14', 'class': 'other' },
-    "0xfff2000f": { 'name': 'Macro 15', 'class': 'other' },
-    "0xfff20010": { 'name': 'Macro 16', 'class': 'other' },
-    "0xfff20011": { 'name': 'Macro 17', 'class': 'other' },
-    "0xfff20012": { 'name': 'Macro 18', 'class': 'other' },
-    "0xfff20013": { 'name': 'Macro 19', 'class': 'other' },
-    "0xfff20014": { 'name': 'Macro 20', 'class': 'other' },
-    "0xfff20015": { 'name': 'Macro 21', 'class': 'other' },
-    "0xfff20016": { 'name': 'Macro 22', 'class': 'other' },
-    "0xfff20017": { 'name': 'Macro 23', 'class': 'other' },
-    "0xfff20018": { 'name': 'Macro 24', 'class': 'other' },
-    "0xfff20019": { 'name': 'Macro 25', 'class': 'other' },
-    "0xfff2001a": { 'name': 'Macro 26', 'class': 'other' },
-    "0xfff2001b": { 'name': 'Macro 27', 'class': 'other' },
-    "0xfff2001c": { 'name': 'Macro 28', 'class': 'other' },
-    "0xfff2001d": { 'name': 'Macro 29', 'class': 'other' },
-    "0xfff2001e": { 'name': 'Macro 30', 'class': 'other' },
-    "0xfff2001f": { 'name': 'Macro 31', 'class': 'other' },
-    "0xfff20020": { 'name': 'Macro 32', 'class': 'other' },
-    "0xfff40000": { 'name': 'GPIO 0', 'class': 'other' },
-    "0xfff40001": { 'name': 'GPIO 1', 'class': 'other' },
-    "0xfff40002": { 'name': 'GPIO 2', 'class': 'other' },
-    "0xfff40003": { 'name': 'GPIO 3', 'class': 'other' },
-    "0xfff40004": { 'name': 'GPIO 4', 'class': 'other' },
-    "0xfff40005": { 'name': 'GPIO 5', 'class': 'other' },
-    "0xfff40006": { 'name': 'GPIO 6', 'class': 'other' },
-    "0xfff40007": { 'name': 'GPIO 7', 'class': 'other' },
-    "0xfff40008": { 'name': 'GPIO 8', 'class': 'other' },
-    "0xfff40009": { 'name': 'GPIO 9', 'class': 'other' },
-    "0xfff4000a": { 'name': 'GPIO 10', 'class': 'other' },
-    "0xfff4000b": { 'name': 'GPIO 11', 'class': 'other' },
-    "0xfff4000c": { 'name': 'GPIO 12', 'class': 'other' },
-    "0xfff4000d": { 'name': 'GPIO 13', 'class': 'other' },
-    "0xfff4000e": { 'name': 'GPIO 14', 'class': 'other' },
-    "0xfff4000f": { 'name': 'GPIO 15', 'class': 'other' },
-    "0xfff40010": { 'name': 'GPIO 16', 'class': 'other' },
-    "0xfff40011": { 'name': 'GPIO 17', 'class': 'other' },
-    "0xfff40012": { 'name': 'GPIO 18', 'class': 'other' },
-    "0xfff40013": { 'name': 'GPIO 19', 'class': 'other' },
-    "0xfff40014": { 'name': 'GPIO 20', 'class': 'other' },
-    "0xfff40015": { 'name': 'GPIO 21', 'class': 'other' },
-    "0xfff40016": { 'name': 'GPIO 22', 'class': 'other' },
-    "0xfff40017": { 'name': 'GPIO 23', 'class': 'other' },
-    "0xfff40018": { 'name': 'GPIO 24', 'class': 'other' },
-    "0xfff40019": { 'name': 'GPIO 25', 'class': 'other' },
-    "0xfff4001a": { 'name': 'GPIO 26', 'class': 'other' },
-    "0xfff4001b": { 'name': 'GPIO 27', 'class': 'other' },
-    "0xfff4001c": { 'name': 'GPIO 28', 'class': 'other' },
-    "0xfff4001d": { 'name': 'GPIO 29', 'class': 'other' },
-    "0xfff60000": { 'name': 'Analog 0', 'class': 'other' },
-    "0xfff60001": { 'name': 'Analog 1', 'class': 'other' },
-    "0xfff60002": { 'name': 'Analog 2', 'class': 'other' },
-    "0xfff60003": { 'name': 'Analog 3', 'class': 'other' },
-    "0xfff60004": { 'name': 'Analog 4', 'class': 'other' },
-    "0xfff60005": { 'name': 'Analog 5', 'class': 'other' },
+// importing the fs module
+const fs = require("fs");
+
+const data = {
+    "version": 12,
+    "unmapped_passthrough_layers": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+    ],
+    "partial_scroll_timeout": 1000000,
+    "tap_hold_threshold": 200000,
+    "gpio_debounce_time_ms": 5,
+    "interval_override": 0,
+    "our_descriptor_number": 0,
+    "ignore_auth_dev_inputs": false,
+    "macro_entry_duration": 1,
+    "gpio_output_mode": 0,
+    "mappings": [
+        {
+            "source_usage": "0xfff4000a",
+            "target_usage": "0xfff20001",
+            "layers": [
+                0
+            ],
+            "sticky": false,
+            "tap": false,
+            "hold": false,
+            "scaling": 1000,
+            "source_port": 0,
+            "target_port": 0
+        },
+        {
+            "source_usage": "0xfff4000b",
+            "target_usage": "0xfff20002",
+            "layers": [
+                0
+            ],
+            "sticky": false,
+            "tap": false,
+            "hold": false,
+            "scaling": 1000,
+            "source_port": 0,
+            "target_port": 0
+        },
+        {
+            "source_usage": "0xfff4000c",
+            "target_usage": "0xfff20003",
+            "layers": [
+                0
+            ],
+            "sticky": false,
+            "tap": false,
+            "hold": false,
+            "scaling": 1000,
+            "source_port": 0,
+            "target_port": 0
+        },
+        {
+            "source_usage": "0xfff4000d",
+            "target_usage": "0xfff20004",
+            "layers": [
+                0
+            ],
+            "sticky": false,
+            "tap": false,
+            "hold": false,
+            "scaling": 1000,
+            "source_port": 0,
+            "target_port": 0
+        },
+        {
+            "source_usage": "0xfff40015",
+            "target_usage": "0xfff20005",
+            "layers": [
+                0
+            ],
+            "sticky": false,
+            "tap": false,
+            "hold": false,
+            "scaling": 1000,
+            "source_port": 0,
+            "target_port": 0
+        },
+        {
+            "source_usage": "0xfff40014",
+            "target_usage": "0xfff20006",
+            "layers": [
+                0
+            ],
+            "sticky": false,
+            "tap": false,
+            "hold": false,
+            "scaling": 1000,
+            "source_port": 0,
+            "target_port": 0
+        },
+        {
+            "source_usage": "0xfff40013",
+            "target_usage": "0xfff20007",
+            "layers": [
+                0
+            ],
+            "sticky": false,
+            "tap": false,
+            "hold": false,
+            "scaling": 1000,
+            "source_port": 0,
+            "target_port": 0
+        },
+        {
+            "source_usage": "0xfff40012",
+            "target_usage": "0xfff20008",
+            "layers": [
+                0
+            ],
+            "sticky": false,
+            "tap": false,
+            "hold": false,
+            "scaling": 1000,
+            "source_port": 0,
+            "target_port": 0
+        }
+    ],
+    "macros": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+    ],
+    "expressions": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+    ],
+    "quirks": []
 }
 
 const usages_by_function = {
@@ -324,7 +381,9 @@ const usages_by_function = {
  }
 
 var input_string = 'Hello World Lennon'
+var macro_number = 1
 var usages_array = []
+var dataObject = {};
 
 // let repeats_string = input_string.replace(new RegExp("(.)\1"), '$&' +
 // "+");
@@ -383,5 +442,21 @@ for (let i = 0; i < usages_array.length; i++){
 
 console.log(result_array)
 
-import data from './base JSON.js'
-console.log(data)
+data['macros'][macro_number-1].push(...result_array)
+// console.log(data['macros'])
+
+const datastr = JSON.stringify(data, null, 4);
+
+// writing the JSON string content to a file
+fs.writeFile(json_out_path, datastr, (error) => {
+  // throwing the error
+  // in case of a writing problem
+  if (error) {
+    // logging the error
+    console.error(error);
+
+    throw error;
+  }
+
+  console.log("data.json written correctly");
+});
