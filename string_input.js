@@ -380,7 +380,7 @@ const usages_by_function = {
  'GPIO 29': '0xfff4001d'
  }
 
-var input_string = 'Hello World Lennon'
+var input_string = 'Hello World'
 var macro_number = 1
 var usages_array = []
 var dataObject = {};
